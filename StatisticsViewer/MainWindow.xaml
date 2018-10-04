@@ -1,0 +1,121 @@
+﻿<Window x:Class="StatisticsViewer.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:local="clr-namespace:StatisticsViewer"
+        mc:Ignorable="d"
+        Title="Statistics Viewer"
+        Width="800"
+        Height="600"
+        WindowState="Maximized" 
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Grid.Row="0" Name="Table" Header="Таблица">
+                <MenuItem Name="ChooseTable" Header="Выбрать таблицу"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="400"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0" Style="{StaticResource SidePanel}">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="80"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0" Style="{StaticResource GridContainer}">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="auto"/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Column="0" Grid.Row="0" Content="Начало выборки:"/>
+                    <xctk:DateTimePicker Grid.Column="1" Grid.Row="0"/>
+                    <Label Grid.Column="0" Grid.Row="1" Content="Конец выборки:"/>
+                    <xctk:DateTimePicker Grid.Column="1" Grid.Row="1"/>
+                </Grid>
+                <StackPanel Grid.Row="1" Style="{StaticResource GrayStackContainer}">
+                    <Label Content="Группировка"/>
+                    <CheckBox Content="value"></CheckBox>
+                    <CheckBox Content="value"></CheckBox>
+                    <CheckBox Content="value"></CheckBox>
+                </StackPanel>
+                <Grid Grid.Row="2" Style="{StaticResource GrayGridContainer}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="auto"/>
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Content="Фильтр выборки"/>
+                    <StackPanel Grid.Row="1">
+                        <Border Style="{StaticResource ConditionContainer}">
+                            <StackPanel>
+                                <Border Style="{StaticResource ConditionContainer}">
+                                    <Label Content="short message = navigation"/>
+                                </Border>
+                                <ComboBox Style="{StaticResource Selector}">
+                                    <ComboBoxItem Content="AND" IsSelected="True"/>
+                                    <ComboBoxItem Content="OR"/>
+                                </ComboBox>
+                                <Border Style="{StaticResource ConditionContainer}">
+                                    <Label Content="short message = navigation"/>
+                                </Border>
+                            </StackPanel>
+                        </Border>
+                        <ComboBox Style="{StaticResource Selector}">
+                            <ComboBoxItem Content="AND" IsSelected="True"/>
+                            <ComboBoxItem Content="OR"/>
+                        </ComboBox>
+                        <Border Style="{StaticResource ConditionContainer}">
+                            <Label Content="short message = navigation"/>
+                        </Border>
+                    </StackPanel>
+                    <DockPanel Grid.Row="2" Style="{StaticResource GrayDockContainer}">
+                        <Button Content="добавить условие"/>
+                        <Button Content="добавить блок"/>
+                        <Button Content="x" Foreground="Red" ToolTip="Удалить" HorizontalAlignment="Right"/>
+                    </DockPanel>
+                </Grid>
+                <Border Grid.Row="3" Style="{StaticResource BottomPanel}">
+                    <Button Name="ApplyFilters" Content="Применить фильтры"/>
+                </Border>
+            </Grid>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+                <DataGrid Grid.Row="0" Name="MainTable">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Sample"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Border Grid.Row="0" Style="{StaticResource LoadingPanel}">
+                    <Label Content="Идет загрузка..."/>
+                </Border>
+                <DockPanel Grid.Row="1" HorizontalAlignment="Left">
+                    <Button Name="Save" Content="Сохранить строку"/>
+                    <Button Name="DeleteFromDB" Content="Удалить строку из БД"/>
+                </DockPanel>
+                <DataGrid Grid.Row="2" Name="SavedRows">
+                </DataGrid>
+                <Button Grid.Row="3" Name="DeleteFromSaved" Content="Удалить строку" HorizontalAlignment="Left"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

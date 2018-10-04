@@ -1,0 +1,100 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+                    xmlns:local="clr-namespace:StatisticsViewer">
+    
+    <Style TargetType="Grid" x:Key="SidePanel">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+    </Style>
+
+    <Style TargetType="Grid" x:Key="GridContainer">
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style TargetType="Grid" x:Key="GrayGridContainer">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style TargetType="StackPanel" x:Key="GrayStackContainer">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.1"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+
+    <Style TargetType="DockPanel" x:Key="GrayDockContainer">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Border" x:Key="BottomPanel">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.2"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="Border" x:Key="LoadingPanel">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.4"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Height" Value="30"/>
+        <Setter Property="VerticalAlignment" Value="Bottom"/>
+    </Style>
+
+    <Style TargetType="xctk:DateTimePicker">
+        <Setter Property="Margin" Value="4"/>
+    </Style>
+
+    <Style TargetType="CheckBox">
+        <Setter Property="Margin" Value="4"/>
+    </Style>
+
+    <Style TargetType="Button">
+        <Setter Property="Margin" Value="10"/>
+        <Setter Property="Padding" Value="10 4"/>
+    </Style>
+
+    <Style TargetType="Border" x:Key="ConditionContainer">
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.2"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Margin" Value="4"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Padding" Value="4 0"/>
+    </Style>
+
+    <Style TargetType="ComboBox" x:Key="Selector">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="Margin" Value="6 0"/>
+    </Style>
+
+    <Style TargetType="DataGrid">
+        <Setter Property="Margin" Value="10"/>
+    </Style>
+    
+</ResourceDictionary>
