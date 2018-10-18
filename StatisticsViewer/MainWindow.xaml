@@ -49,6 +49,7 @@
                 </Grid>
                 <StackPanel Grid.Row="1" Style="{StaticResource GrayStackContainer}">
                     <Label Content="Группировка"/>
+                    
                     <CheckBox Content="value"></CheckBox>
                     <CheckBox Content="value"></CheckBox>
                     <CheckBox Content="value"></CheckBox>
@@ -60,37 +61,20 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
                     <Label Grid.Row="0" Content="Фильтр выборки"/>
-                    <StackPanel Grid.Row="1">
-                        <Border Style="{StaticResource ConditionContainer}">
-                            <StackPanel>
-                                <Border Style="{StaticResource ConditionContainer}">
-                                    <Label Content="short message = navigation"/>
-                                </Border>
-                                <ComboBox Style="{StaticResource Selector}">
-                                    <ComboBoxItem Content="AND" IsSelected="True"/>
-                                    <ComboBoxItem Content="OR"/>
-                                </ComboBox>
-                                <Border Style="{StaticResource ConditionContainer}">
-                                    <Label Content="short message = navigation"/>
-                                </Border>
-                            </StackPanel>
-                        </Border>
-                        <ComboBox Style="{StaticResource Selector}">
-                            <ComboBoxItem Content="AND" IsSelected="True"/>
-                            <ComboBoxItem Content="OR"/>
-                        </ComboBox>
-                        <Border Style="{StaticResource ConditionContainer}">
-                            <Label Content="short message = navigation"/>
-                        </Border>
+                    <StackPanel Name="FiltersBloks"  Grid.Row="1">
+                        
+                       
+                       
                     </StackPanel>
                     <DockPanel Grid.Row="2" Style="{StaticResource GrayDockContainer}">
-                        <Button Content="добавить условие"/>
-                        <Button Content="добавить блок"/>
+                        <Button Name="AddCondition" Click="AddCondition_OnClick" Content="добавить условие"/>
+                        <Button Name="OpenBlock" Click="OpenBlock_OnClick" Content="открыть"/>
+                        <Button Name="CloseBlock" Click="CloseBlock_OnClick" Content="закрыть"/>
                         <Button Content="x" Foreground="Red" ToolTip="Удалить" HorizontalAlignment="Right"/>
                     </DockPanel>
                 </Grid>
                 <Border Grid.Row="3" Style="{StaticResource BottomPanel}">
-                    <Button Name="ApplyFilters" Content="Применить фильтры"/>
+                    <Button Name="ApplyFilters" Content="Применить фильтры" Click="ApplyFilters_Click"/>
                 </Border>
             </Grid>
             <Grid Grid.Column="1">

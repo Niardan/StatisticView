@@ -1,0 +1,13 @@
+﻿<UserControl x:Class="StatisticsViewer.XamlElement.Condition"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StatisticsViewer.XamlElement"
+             mc:Ignorable="d" >
+    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
+        <Border Style="{StaticResource ConditionContainer}">
+            <Label Name ="Filter"/>
+        </Border>
+    </Grid>
+</UserControl>
