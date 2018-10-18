@@ -71,7 +71,7 @@ namespace StatisticsViewer
         private UIElement AddConditionElement()
         {
             string text;
-            var addCondition = new AddConditionWindow();
+            var addCondition = new XamlElement.AddConditionWindow();
             if (addCondition.ShowDialogCondition(out text))
             {
                 var condition = new Condition(text);

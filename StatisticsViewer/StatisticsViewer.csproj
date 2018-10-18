@@ -94,9 +94,6 @@
     <Compile Include="Utils\Parametr.cs" />
     <Compile Include="Utils\ParseFilter.cs" />
     <Compile Include="Utils\Time.cs" />
-    <Compile Include="XamlElement\AddConditionWindow.xaml.cs">
-      <DependentUpon>AddConditionWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="XamlElement\BlockControl.xaml.cs">
       <DependentUpon>BlockControl.xaml</DependentUpon>
     </Compile>
@@ -106,7 +103,7 @@
     <Compile Include="XamlElement\Сondition.xaml.cs">
       <DependentUpon>Сondition.xaml</DependentUpon>
     </Compile>
-    <Page Include="EnterExpressionWindow.xaml">
+    <Page Include="XamlElement\AddConditionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,8 +120,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataBase\PostSql.cs" />
-    <Compile Include="EnterExpressionWindow.xaml.cs">
-      <DependentUpon>EnterExpressionWindow.xaml</DependentUpon>
+    <Compile Include="XamlElement\AddConditionWindow.xaml.cs">
+      <DependentUpon>AddConditionWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Filter.xaml.cs">
       <DependentUpon>Filter.xaml</DependentUpon>
@@ -134,10 +131,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Style.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="XamlElement\AddConditionWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

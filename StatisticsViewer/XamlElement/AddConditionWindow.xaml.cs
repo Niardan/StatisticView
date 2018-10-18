@@ -10,7 +10,6 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using StatisticsViewer.Utils;
 
@@ -64,7 +63,6 @@ namespace StatisticsViewer.XamlElement
             }
 
         }
-
         public bool ShowDialogCondition(out string text)
         {
             if (ShowDialog() == true)

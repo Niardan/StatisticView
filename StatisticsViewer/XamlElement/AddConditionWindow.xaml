@@ -1,30 +1,41 @@
 ﻿<Window x:Class="StatisticsViewer.XamlElement.AddConditionWindow"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-      xmlns:local="clr-namespace:StatisticsViewer.XamlElement"
-      HorizontalAlignment="Center"
-      VerticalAlignment="Center"
-      Title="AddConditionWindow">
-    <Grid>
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StatisticsViewer"
+        mc:Ignorable="d"
+        Title="Введите выражение" Height="150" Width="540">
+    <Grid Style="{StaticResource GridContainer}">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition/>
+            <RowDefinition/>
         </Grid.RowDefinitions>
-        <WrapPanel>
-            <StackPanel>
-                <Label>Имя поля</Label>
-                <ComboBox  Name ="FieldName" SelectionChanged="FieldName_SelectionChanged"></ComboBox>
-            </StackPanel>
-            <StackPanel>
-                <Label>Тип сравнения</Label>
-                <ComboBox Name ="TypeComparison" SelectionChanged="TypeComparison_OnSelectionChanged"></ComboBox>
-            </StackPanel>
-            <StackPanel>
-                <Label>Значение поля</Label>
-                <ComboBox Name ="FieldText" SelectionChanged="FieldText_OnSelectionChanged" IsEditable="True"></ComboBox>
-            </StackPanel>
-            <Button Name="OkButton" Click="OkButton_OnClick">Ок</Button>
-        </WrapPanel>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Имя группы"/>
+            <ComboBox Grid.Column="0" Grid.Row="1" IsEditable="True" IsReadOnly="True" Name ="FieldName" SelectionChanged="FieldName_SelectionChanged" Text="Выберите имя..."/>
+            <Label Grid.Column="1" Grid.Row="0" Content="Знак"/>
+            <ComboBox Grid.Column="1" Grid.Row="1" Name ="TypeComparison" SelectionChanged="TypeComparison_OnSelectionChanged">
+                <ComboBoxItem Content="=" IsSelected="True"/>
+                <ComboBoxItem Content="!="/>
+                <ComboBoxItem Content="&lt;"/>
+                <ComboBoxItem Content="&gt;" />
+            </ComboBox>
+            <Label Grid.Column="2" Grid.Row="0" Content="Значение"/>
+            <ComboBox Grid.Column="2" Grid.Row="1" IsEditable="True"  Name ="FieldText" SelectionChanged="FieldText_OnSelectionChanged" IsReadOnly="True" Text="Введите значение..."/>
+        </Grid>
+        <DockPanel Grid.Row="1" HorizontalAlignment="Right">
+            <Button Content="Отмена"/>
+            <Button Content="ОК"/>
+        </DockPanel>
     </Grid>
 </Window>
