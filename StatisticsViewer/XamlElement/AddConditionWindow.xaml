@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StatisticsViewer"
         mc:Ignorable="d"
-        Title="Введите выражение" Height="150" Width="540" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
+        Title="Введите выражение" Height="150" Width="400" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid Style="{StaticResource GridContainer}">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -14,29 +14,29 @@
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition/>
-                <ColumnDefinition/>
+                <ColumnDefinition Width="60"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <Label Grid.Column="0" Grid.Row="0" Content="Имя группы"/>
+            <Label Grid.Column="0" Grid.Row="0" Padding="0 4" Content="Имя группы"/>
             <ComboBox Grid.Column="0" Grid.Row="1" IsEditable="True" IsReadOnly="True" Name ="FieldName" SelectionChanged="FieldName_SelectionChanged" Text="Выберите имя..."/>
-            <Label Grid.Column="1" Grid.Row="0" Content="Знак"/>
-            <ComboBox Grid.Column="1" Grid.Row="1" Name ="TypeComparison" SelectionChanged="TypeComparison_OnSelectionChanged">
+            <Label Grid.Column="1" Grid.Row="0" Padding="0 4" Margin="4 0" Content="Знак"/>
+            <ComboBox Grid.Column="1" Grid.Row="1" Name ="TypeComparison" Margin="4 0" SelectionChanged="TypeComparison_OnSelectionChanged">
                 <ComboBoxItem Content="=" IsSelected="True"/>
                 <ComboBoxItem Content="!="/>
                 <ComboBoxItem Content="&lt;"/>
                 <ComboBoxItem Content="&gt;" />
             </ComboBox>
-            <Label Grid.Column="2" Grid.Row="0" Content="Значение"/>
+            <Label Grid.Column="2" Grid.Row="0" Padding="0 4" Content="Значение"/>
             <ComboBox Grid.Column="2" Grid.Row="1" IsEditable="True"  Name ="FieldText" SelectionChanged="FieldText_OnSelectionChanged" Text="Введите значение..."/>
         </Grid>
         <DockPanel Grid.Row="1" HorizontalAlignment="Right">
             <Label Name="LoadField" VerticalAlignment="Center" Content="загрузка значений полей...." Visibility="Hidden"/>
-            <Button Name ="Cancel" Click="Cancel_OnClick"  Content="Отмена"/>
-            <Button Name="Ok" Click="OkButton_OnClick" Content="ОК"/>
+            <Button Name="Ok" Margin="0 10" Width="80" Click="OkButton_OnClick" Content="ОК"/>
+            <Button Name ="Cancel" Margin="10 10 0 10" Click="Cancel_OnClick" Content="Отмена"/>
         </DockPanel>
     </Grid>
 </Window>

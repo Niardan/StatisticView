@@ -31,6 +31,9 @@ namespace StatisticsViewer.XamlElement
         public event ConditionHandler Deselected;
         public event ConditionHandler Deleted;
         public event ConditionHandler Changed;
+        
+        SolidColorBrush brushSelect = new SolidColorBrush();
+        SolidColorBrush brushUnselect = new SolidColorBrush();
 
         public Condition(string text, FieldsValue fieldsValue)
         {
@@ -38,6 +41,13 @@ namespace StatisticsViewer.XamlElement
             _text = text;
             _fieldsValue = fieldsValue;
             Filter.Content = _text;
+
+
+            brushSelect.Color = Colors.Black;
+            brushSelect.Opacity = 0.2;
+
+            brushUnselect.Color = Colors.White;
+            brushUnselect.Opacity = 0.4;
         }
 
         public BlockControl ParentBlock { get; set; }
@@ -69,13 +79,13 @@ namespace StatisticsViewer.XamlElement
 
         public void Select()
         {
-            SelectedBorder.BorderThickness = new Thickness(2);
+            SelectedBorder.BorderBrush = brushSelect;
             Selected?.Invoke(this);
         }
 
         public void Deselect()
         {
-            SelectedBorder.BorderThickness = new Thickness(0);
+            SelectedBorder.BorderBrush = brushUnselect;
             Deselected?.Invoke(this);
         }
 

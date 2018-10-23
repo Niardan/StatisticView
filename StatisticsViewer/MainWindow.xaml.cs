@@ -76,6 +76,7 @@ namespace StatisticsViewer
         {
             MainTable.GenTable(_parametr);
             LoadIndicator.Visibility = Visibility.Visible;
+            ApplyFilters.Visibility = Visibility.Collapsed;
             _loader.AsyncGetPercentileList(_table, StartDate.Value ?? DateTime.Now, EndDate.Value ?? DateTime.Now, _parametr, PercentileCallback);
             _filterController.ApplyFilter();
         }
@@ -85,7 +86,8 @@ namespace StatisticsViewer
             MainTable.Dispatcher.BeginInvoke(new Action(() =>
             {
                 MainTable.SetSource(new ObservableCollection<PercentileData>(data));
-                LoadIndicator.Visibility = Visibility.Hidden;
+                LoadIndicator.Visibility = Visibility.Collapsed;
+                ApplyFilters.Visibility = Visibility.Visible;
             }));
             LoadIndicator.Dispatcher.BeginInvoke((Action)(() => LoadIndicator.Visibility = Visibility.Hidden));
         }

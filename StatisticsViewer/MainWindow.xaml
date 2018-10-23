@@ -24,7 +24,7 @@
         </Menu>
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="400"/>
+                <ColumnDefinition Width="350"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0" Style="{StaticResource SidePanel}">
@@ -62,14 +62,22 @@
                         
                     </StackPanel>
                     <DockPanel Grid.Row="2" Style="{StaticResource GrayDockContainer}">
-                        <Button Name="AddCondition" Click="AddCondition_OnClick" Content="добавить условие"/>
-                        <Button Name="OpenBlock" Click="OpenBlock_OnClick" Content="открыть"/>
-                        <Button Name="CloseBlock" Click="CloseBlock_OnClick" Content="закрыть"/>
-                        <Button Content="x" Foreground="Red" ToolTip="Удалить" HorizontalAlignment="Right" Name="DeleteFilter" Click="DeleteFilter_OnClick"/>
+                        <Button Name="AddCondition" Click="AddCondition_OnClick" Content="+ условие"/>
+                        <Button Name="OpenBlock" Margin="0 10 10 10" Click="OpenBlock_OnClick" Content="("/>
+                        <Button Name="CloseBlock" Margin="0 10 10 10" Click="CloseBlock_OnClick" Content=")"/>
+                        <Button Content="x" Margin="0 10 10 10" Foreground="Red" ToolTip="Удалить" HorizontalAlignment="Right" Name="DeleteFilter" Click="DeleteFilter_OnClick"/>
                     </DockPanel>
                 </Grid>
                 <Border Grid.Row="3" Style="{StaticResource BottomPanel}">
-                    <Button Name="ApplyFilters" Content="Применить фильтры" Click="ApplyFilters_Click"/>
+                    <StackPanel>
+                        <Button Name="ApplyFilters" Height="60" Content="Применить фильтры" Click="ApplyFilters_Click"/>
+                        <Border Grid.Row="0" Name="LoadIndicator" Visibility="Collapsed" Style="{StaticResource LoadingPanel}">
+                            <DockPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Image Width="20" Source="Images/loading.png"  />
+                                <Label Content="Идет загрузка..."/>
+                            </DockPanel>
+                        </Border>
+                    </StackPanel>
                 </Border>
             </Grid>
             <Grid Grid.Column="1" Style="{StaticResource GridContainer}">
@@ -82,17 +90,14 @@
                 <xamlElement:DataGridPercentileTable Grid.Row="0" x:Name="MainTable">
                  
                 </xamlElement:DataGridPercentileTable>
-                <Border Grid.Row="0" Name="LoadIndicator" Visibility="Hidden" Style="{StaticResource LoadingPanel}">
-                    <Label Content="Идет загрузка..."/>
-                </Border>
                 <DockPanel Grid.Row="1" HorizontalAlignment="Left">
-                    <Button Name="Save" Click="Save_OnClick" Content="Сохранить строку"/>
-                    <Button Name="DeleteFromDB" Content="Удалить строку из БД"/>
+                    <Button Name="Save" Margin="0 10 10 10" Click="Save_OnClick" Content="Сохранить строку"/>
+                    <Button Name="DeleteFromDB" Margin="0 10 10 10"  Content="Удалить строку из БД"/>
                 </DockPanel>
                 <xamlElement:DataGridPercentileTable Grid.Row="2" x:Name="SavedRows">
 
                 </xamlElement:DataGridPercentileTable>
-                <Button Grid.Row="3" Name="DeleteFromSaved" Click="DeleteFromSaved_OnClick"  Content="Удалить строку" HorizontalAlignment="Left"/>
+                <Button Grid.Row="3" Margin="0 10 10 10" Name="DeleteFromSaved" Click="DeleteFromSaved_OnClick" Content="Удалить строку" HorizontalAlignment="Left"/>
                 <local:Filter Visibility="Collapsed"></local:Filter>
             </Grid>
         </Grid>

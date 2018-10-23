@@ -87,8 +87,7 @@ namespace StatisticsViewer
         public void ApplyFilter()
         {
             string str = GetFilter();
-            _parametr.Filter = str;
-            MessageBox.Show(str);
+            _parametr.Filter = str;           
         }
 
         public BlockControl Parse(string filter)

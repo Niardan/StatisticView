@@ -193,7 +193,10 @@
     <Folder Include="Fields\" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="filter.png" />
+    <Resource Include="Images\filter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\loading.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

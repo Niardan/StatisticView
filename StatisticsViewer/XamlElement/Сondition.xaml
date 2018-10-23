@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:StatisticsViewer.XamlElement"
              mc:Ignorable="d" >
     <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-        <Border Name="SelectedBorder" Style="{StaticResource ConditionContainer}" BorderBrush="Black">
+        <Border Name="SelectedBorder" Style="{StaticResource ConditionContainer}">
             <Label Name ="Filter"/>
         </Border>
     </Grid>

@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:StatisticsViewer.XamlElement"
              mc:Ignorable="d" >
     <Grid>
-        <ComboBox Name="FilterBox" Style="{StaticResource Selector}">
+        <ComboBox Name="FilterBox" Style="{StaticResource ComboBoxFlatStyle}">
             <ComboBoxItem Content="AND" IsSelected="True"/>
             <ComboBoxItem Content="OR"/>
         </ComboBox>

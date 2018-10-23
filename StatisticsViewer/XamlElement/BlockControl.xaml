@@ -7,7 +7,7 @@
              mc:Ignorable="d" 
           >
     <Grid>
-        <Border Style="{StaticResource ConditionContainer}">
+        <Border Style="{StaticResource BlockContainer}">
             <StackPanel Name="BlockPanel"/>
         </Border>
     </Grid>
