@@ -1,16 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using StatisticsViewer.Utils;
 
 namespace StatisticsViewer.XamlElement
@@ -18,24 +8,27 @@ namespace StatisticsViewer.XamlElement
     /// <summary>
     /// Логика взаимодействия для AddConditionWindow.xaml
     /// </summary>
+
     public partial class AddConditionWindow : Window
     {
         private string _fieldName;
         private string _compasionName;
         private string _text;
-
-        public AddConditionWindow() : this(null, null, null)
+        private FieldsValue _fieldsValue;
+        public AddConditionWindow(FieldsValue fieldsValue) : this(fieldsValue, null, null, null)
         {
         }
-        public AddConditionWindow(string filedName, string compasion, string text)
+
+        public AddConditionWindow(FieldsValue fieldsValue, string filedName, string compasion, string text)
         {
             InitializeComponent();
-            var filedsValue = new FieldsValue();
-            foreach (var item in filedsValue.FieldName)
+            _fieldsValue = fieldsValue;
+            foreach (var item in _fieldsValue.FieldsName)
             {
                 FieldName.Items.Add(item);
             }
-            foreach (var item in filedsValue.TypeCompasion)
+
+            foreach (var item in _fieldsValue.TypeCompasion)
             {
                 TypeComparison.Items.Add(item);
             }
@@ -48,6 +41,7 @@ namespace StatisticsViewer.XamlElement
             {
                 FieldName.SelectedIndex = 0;
             }
+
             if (!string.IsNullOrEmpty(compasion))
             {
                 TypeComparison.SelectedValue = compasion;
@@ -61,13 +55,13 @@ namespace StatisticsViewer.XamlElement
             {
                 FieldText.Text = text;
             }
-
         }
+
         public bool ShowDialogCondition(out string text)
         {
             if (ShowDialog() == true)
             {
-                _text = FieldText.Text;
+                _text = $"'{FieldText.Text}'";
                 _fieldName = FieldName.Text;
                 _compasionName = TypeComparison.Text;
                 text = _fieldName + " " + _compasionName + " " + _text;
@@ -80,17 +74,33 @@ namespace StatisticsViewer.XamlElement
 
         private void FieldName_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _fieldName = (string)((ComboBox)sender).SelectedItem;
+            _fieldName = ((ComboBox)sender).SelectedItem.ToString();
+            FieldText.Items.Clear();
+            FieldText.Text = null;
+            if (!_fieldsValue.GetFieldValue(_fieldName, Collection))
+            {
+                LoadField.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void Collection(ICollection<string> collection)
+        {
+            LoadField.Visibility = Visibility.Hidden;
+            ;
+            foreach (var item in collection)
+            {
+                FieldText.Items.Add(item);
+            }
         }
 
         private void TypeComparison_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _compasionName = (string)((ComboBox)sender).SelectedItem;
+            _compasionName = ((ComboBox)sender).SelectedItem.ToString();
         }
 
         private void FieldText_OnSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            _text = (string)((ComboBox)sender).SelectedItem;
+            _text = ((ComboBox)sender).SelectedItem?.ToString();
         }
 
         private void OkButton_OnClick(object sender, RoutedEventArgs e)
@@ -101,8 +111,19 @@ namespace StatisticsViewer.XamlElement
                 MessageBox.Show("Не все поля заполнены!");
                 return;
             }
+
             this.DialogResult = true;
             Close();
+        }
+
+        private void Cancel_OnClick(object sender, RoutedEventArgs e)
+        {
+            Close();
+        }
+
+        private void Window_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            _fieldsValue.CloseHandler();
         }
     }
 }

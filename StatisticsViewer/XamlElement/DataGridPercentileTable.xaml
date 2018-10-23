@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="StatisticsViewer.XamlElement.DataGridPercentileTable"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:StatisticsViewer.XamlElement"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <DataGrid Grid.Row="0" Name="MainTable" AutoGenerateColumns="False" CanUserAddRows="False">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="StartData"
+                                            Binding="{Binding StartTime, StringFormat={}{0:dd.MM.dd HH:mm}}" />
+                <DataGridTextColumn Header="EndTime"
+                                            Binding="{Binding EndTime, StringFormat={}{0:dd.MM.dd HH:mm}}" />
+                <local:ContextDataGridTextCollumn Header="Version" Context="version"
+                                            Binding="{Binding version}"/>
+                <local:ContextDataGridTextCollumn Header="ShortMessage" Context="short_message"
+                                            Binding="{Binding short_message}"/>
+                <local:ContextDataGridTextCollumn Header="Room" Context="room"
+                                            Binding="{Binding room}"/>
+                <local:ContextDataGridTextCollumn Header="FullMessage" Context="full_message"
+                                            Binding="{Binding full_message}"/>
+                <local:ContextDataGridTextCollumn Header="Environment" Context="environment"
+                                            Binding="{Binding environment}"/>
+                <local:ContextDataGridTextCollumn Header="AppName" Context="app_name" Binding="{Binding app_name}"/><DataGridTextColumn Header="Count"
+                                            Binding="{Binding count}"/>
+                <DataGridTextColumn Header="Fulltime" Binding="{Binding fulltime}" />
+                <DataGridTextColumn Header="Percentile_10"
+                                            Binding="{Binding Percentile_10}"/>
+                <DataGridTextColumn Header="Percentile_25"
+                                            Binding="{Binding Percentile_25}"/>
+                <DataGridTextColumn Header="Percentile_50"
+                                            Binding="{Binding Percentile_50}"/>
+                <DataGridTextColumn Header="Percentile_75"
+                                            Binding="{Binding Percentile_75}"/>
+                <DataGridTextColumn Header="Percentile_98"
+                                            Binding="{Binding Percentile_98}"/>
+                <DataGridTextColumn Header="Percentile_100"
+                                            Binding="{Binding Percentile_100}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>

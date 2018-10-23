@@ -19,16 +19,28 @@ namespace StatisticsViewer.XamlElement
     /// <summary>
     /// Логика взаимодействия для condition.xaml
     /// </summary>
+
+    public delegate void ConditionHandler(Condition sender);
     public partial class Condition : UserControl
     {
         private double _time;
         private string _text;
-        public Condition(string text)
+        private FieldsValue _fieldsValue;
+
+        public event ConditionHandler Selected;
+        public event ConditionHandler Deselected;
+        public event ConditionHandler Deleted;
+        public event ConditionHandler Changed;
+
+        public Condition(string text, FieldsValue fieldsValue)
         {
             InitializeComponent();
             _text = text;
+            _fieldsValue = fieldsValue;
             Filter.Content = _text;
         }
+
+        public BlockControl ParentBlock { get; set; }
 
         public string GetFilter()
         {
@@ -42,16 +54,34 @@ namespace StatisticsViewer.XamlElement
             {
                 var array = _text.Split(' ');
 
-                var form = new AddConditionWindow(array[0], array[1], array[2]);
-                string text;
-                if (form.ShowDialogCondition(out text))
+                var form = new AddConditionWindow(_fieldsValue, array[0], array[1], array[2]);
+                if (form.ShowDialogCondition(out var text))
                 {
                     _text = text;
                     Filter.Content = _text;
+                    Changed?.Invoke(this);
                 }
             }
 
+            Select();
             _time = currentTime;
+        }
+
+        public void Select()
+        {
+            SelectedBorder.BorderThickness = new Thickness(2);
+            Selected?.Invoke(this);
+        }
+
+        public void Deselect()
+        {
+            SelectedBorder.BorderThickness = new Thickness(0);
+            Deselected?.Invoke(this);
+        }
+
+        public void Delete()
+        {
+            Deleted?.Invoke(this);
         }
     }
 }

@@ -87,18 +87,26 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataBase\PostSqlCommand.cs" />
     <Compile Include="FilterController.cs" />
     <Compile Include="Model\PercentileData.cs" />
+    <Compile Include="Utils\AsyncBaseLoader.cs" />
     <Compile Include="Utils\ConverterMessage.cs" />
     <Compile Include="Utils\FieldsValue.cs" />
     <Compile Include="Utils\Parametr.cs" />
-    <Compile Include="Utils\ParseFilter.cs" />
     <Compile Include="Utils\Time.cs" />
     <Compile Include="XamlElement\BlockControl.xaml.cs">
       <DependentUpon>BlockControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="XamlElement\ComboControll.xaml.cs">
       <DependentUpon>ComboControll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XamlElement\DataGridContextCollumn.cs" />
+    <Compile Include="XamlElement\DataGridPercentileTable.xaml.cs">
+      <DependentUpon>DataGridPercentileTable.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="XamlElement\GroupBoxElement.xaml.cs">
+      <DependentUpon>GroupBoxElement.xaml</DependentUpon>
     </Compile>
     <Compile Include="XamlElement\Сondition.xaml.cs">
       <DependentUpon>Сondition.xaml</DependentUpon>
@@ -139,6 +147,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="XamlElement\ComboControll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlElement\DataGridPercentileTable.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="XamlElement\GroupBoxElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -23,7 +23,8 @@ namespace StatisticsViewer.XamlElement
         public ComboControll()
         {
             InitializeComponent();
-        }
+        } 
+
         public ComboControll(string value) : this()
         {
             FilterBox.Text = value;

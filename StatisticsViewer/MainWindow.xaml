@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:local="clr-namespace:StatisticsViewer"
+        xmlns:xamlElement="clr-namespace:StatisticsViewer.XamlElement"
         mc:Ignorable="d"
         Title="Statistics Viewer"
         Width="800"
@@ -43,16 +44,12 @@
                         <RowDefinition/>
                     </Grid.RowDefinitions>
                     <Label Grid.Column="0" Grid.Row="0" Content="Начало выборки:"/>
-                    <xctk:DateTimePicker Grid.Column="1" Grid.Row="0"/>
+                    <xctk:DateTimePicker Name="StartDate" Grid.Column="1" Grid.Row="0" ValueChanged="StartDate_ValueChanged"/>
                     <Label Grid.Column="0" Grid.Row="1" Content="Конец выборки:"/>
-                    <xctk:DateTimePicker Grid.Column="1" Grid.Row="1"/>
+                    <xctk:DateTimePicker Name="EndDate" ValueChanged="EndDate_OnValueChanged" Grid.Column="1" Grid.Row="1"/>
                 </Grid>
-                <StackPanel Grid.Row="1" Style="{StaticResource GrayStackContainer}">
-                    <Label Content="Группировка"/>
-                    
-                    <CheckBox Content="value"></CheckBox>
-                    <CheckBox Content="value"></CheckBox>
-                    <CheckBox Content="value"></CheckBox>
+                <StackPanel Name="GroupPanel"  Grid.Row="1" Style="{StaticResource GrayStackContainer}">
+                  
                 </StackPanel>
                 <Grid Grid.Row="2" Style="{StaticResource GrayGridContainer}">
                     <Grid.RowDefinitions>
@@ -63,14 +60,12 @@
                     <Label Grid.Row="0" Content="Фильтр выборки"/>
                     <StackPanel Name="FiltersBloks"  Grid.Row="1">
                         
-                       
-                       
                     </StackPanel>
                     <DockPanel Grid.Row="2" Style="{StaticResource GrayDockContainer}">
                         <Button Name="AddCondition" Click="AddCondition_OnClick" Content="добавить условие"/>
                         <Button Name="OpenBlock" Click="OpenBlock_OnClick" Content="открыть"/>
                         <Button Name="CloseBlock" Click="CloseBlock_OnClick" Content="закрыть"/>
-                        <Button Content="x" Foreground="Red" ToolTip="Удалить" HorizontalAlignment="Right"/>
+                        <Button Content="x" Foreground="Red" ToolTip="Удалить" HorizontalAlignment="Right" Name="DeleteFilter" Click="DeleteFilter_OnClick"/>
                     </DockPanel>
                 </Grid>
                 <Border Grid.Row="3" Style="{StaticResource BottomPanel}">
@@ -84,21 +79,20 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
-                <DataGrid Grid.Row="0" Name="MainTable">
-                    <DataGrid.Columns>
-                        <DataGridTextColumn Header="Sample"/>
-                    </DataGrid.Columns>
-                </DataGrid>
-                <Border Grid.Row="0" Style="{StaticResource LoadingPanel}">
+                <xamlElement:DataGridPercentileTable Grid.Row="0" x:Name="MainTable">
+                 
+                </xamlElement:DataGridPercentileTable>
+                <Border Grid.Row="0" Name="LoadIndicator" Visibility="Hidden" Style="{StaticResource LoadingPanel}">
                     <Label Content="Идет загрузка..."/>
                 </Border>
                 <DockPanel Grid.Row="1" HorizontalAlignment="Left">
-                    <Button Name="Save" Content="Сохранить строку"/>
+                    <Button Name="Save" Click="Save_OnClick" Content="Сохранить строку"/>
                     <Button Name="DeleteFromDB" Content="Удалить строку из БД"/>
                 </DockPanel>
-                <DataGrid Grid.Row="2" Name="SavedRows">
-                </DataGrid>
-                <Button Grid.Row="3" Name="DeleteFromSaved" Content="Удалить строку" HorizontalAlignment="Left"/>
+                <xamlElement:DataGridPercentileTable Grid.Row="2" x:Name="SavedRows">
+
+                </xamlElement:DataGridPercentileTable>
+                <Button Grid.Row="3" Name="DeleteFromSaved" Click="DeleteFromSaved_OnClick"  Content="Удалить строку" HorizontalAlignment="Left"/>
                 <local:Filter Visibility="Collapsed"></local:Filter>
             </Grid>
         </Grid>

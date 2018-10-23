@@ -1,13 +1,15 @@
-﻿<UserControl x:Class="StatisticsViewer.XamlElement.Condition"
+﻿<UserControl x:Class="StatisticsViewer.XamlElement.GroupBoxElement"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:StatisticsViewer.XamlElement"
              mc:Ignorable="d" >
-    <Grid MouseLeftButtonDown="Grid_MouseLeftButtonDown">
-        <Border Name="SelectedBorder" Style="{StaticResource ConditionContainer}" BorderBrush="Black">
-            <Label Name ="Filter"/>
-        </Border>
+    <Grid>
+        <StackPanel Style="{StaticResource GrayStackContainer}">
+            <Label Content="Группировка"/>
+            <StackPanel Name="GroupCheck">
+            </StackPanel>
+        </StackPanel>
     </Grid>
 </UserControl>

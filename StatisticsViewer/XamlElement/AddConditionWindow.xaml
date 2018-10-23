@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:StatisticsViewer"
         mc:Ignorable="d"
-        Title="Введите выражение" Height="150" Width="540">
+        Title="Введите выражение" Height="150" Width="540" WindowStartupLocation="CenterScreen" Closing="Window_Closing">
     <Grid Style="{StaticResource GridContainer}">
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -31,11 +31,12 @@
                 <ComboBoxItem Content="&gt;" />
             </ComboBox>
             <Label Grid.Column="2" Grid.Row="0" Content="Значение"/>
-            <ComboBox Grid.Column="2" Grid.Row="1" IsEditable="True"  Name ="FieldText" SelectionChanged="FieldText_OnSelectionChanged" IsReadOnly="True" Text="Введите значение..."/>
+            <ComboBox Grid.Column="2" Grid.Row="1" IsEditable="True"  Name ="FieldText" SelectionChanged="FieldText_OnSelectionChanged" Text="Введите значение..."/>
         </Grid>
         <DockPanel Grid.Row="1" HorizontalAlignment="Right">
-            <Button Content="Отмена"/>
-            <Button Content="ОК"/>
+            <Label Name="LoadField" VerticalAlignment="Center" Content="загрузка значений полей...." Visibility="Hidden"/>
+            <Button Name ="Cancel" Click="Cancel_OnClick"  Content="Отмена"/>
+            <Button Name="Ok" Click="OkButton_OnClick" Content="ОК"/>
         </DockPanel>
     </Grid>
 </Window>

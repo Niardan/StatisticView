@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -31,26 +32,26 @@ public class Parametr
                 _parametrModel = (ParametrModel)serializer.Deserialize(stream);
             }
         }
-        catch 
+        catch
         {
             _parametrModel = new ParametrModel();
+            _parametrModel.SavedRows = new ObservableCollection<PercentileData>();
             _parametrModel.Filters = "";
-            _parametrModel.GroupFields = new ObservableCollection<FieldGroupModel>
-                {
-                    new FieldGroupModel("short_message"),
-                    new FieldGroupModel("room"),
-                    new FieldGroupModel("process"),
-                    new FieldGroupModel("full_message"),
-                    new FieldGroupModel("environment"),
-                    new FieldGroupModel("app_name"),
-                    new FieldGroupModel("version")
+            _parametrModel.GroupFields = new Dictionary<string, bool>()
+            {
+                { "short_message",true },
+                { "room",true },
+                { "process",true },
+                { "full_message",true },
+                { "environment",true },
+                { "app_name",true },
+                { "version",true }
                 };
         }
     }
 
     public void SaveParametr()
     {
-
         BinaryFormatter serializer = new BinaryFormatter();
         var path = System.AppDomain.CurrentDomain.BaseDirectory;
         using (Stream stream = new FileStream(path + "/config.ini", FileMode.Create))
@@ -66,17 +67,36 @@ public class Parametr
             _parametrModel.StartDate = value;
             SaveParametr();
         }
-        get { return _parametrModel.StartDate; }
+
+        get
+        {
+            return _parametrModel.StartDate;
+        }
     }
 
-    public ObservableCollection<FieldGroupModel> GroupFields
+    public ICollection<double> ListPercentile
+    {
+        get { return new List<double> {0.1, 0.25, 0.50, 0.75, 0.9, 0.98, 1}; }
+    }
+
+    public IDictionary<string, bool> GroupFields
     {
         set
         {
             _parametrModel.GroupFields = value;
             SaveParametr();
         }
-        get { return _parametrModel.GroupFields; }
+
+        get
+        {
+            return _parametrModel.GroupFields;
+        }
+    }
+
+    public void SetGroupFieldParam(string fieldName, bool enabled)
+    {
+        _parametrModel.GroupFields[fieldName] = enabled;
+        SaveParametr();
     }
 
     public DateTime EndDate
@@ -86,7 +106,28 @@ public class Parametr
             _parametrModel.EndDate = value;
             SaveParametr();
         }
-        get { return _parametrModel.EndDate; }
+
+        get
+        {
+            return _parametrModel.EndDate;
+        }
+    }
+
+    public ObservableCollection<PercentileData> SavedRows
+    {
+        get { return _parametrModel.SavedRows; }
+    }
+
+    public void AddSavePercentile (PercentileData percentile)
+    {
+       _parametrModel.SavedRows.Add(percentile);
+        SaveParametr();
+    }
+
+    public void RemoveSavePercentile(PercentileData percentile)
+    {
+        _parametrModel.SavedRows.Remove(percentile);
+        SaveParametr();
     }
 
     public string Filter
@@ -96,7 +137,10 @@ public class Parametr
             _parametrModel.Filters = value;
             SaveParametr();
         }
-        get { return _parametrModel.Filters; }
+        get
+        {
+            return _parametrModel.Filters;
+        }
     }
 
 }
@@ -106,6 +150,7 @@ public class ParametrModel
 {
     public DateTime StartDate;
     public DateTime EndDate;
-    public ObservableCollection<FieldGroupModel> GroupFields;
+    public IDictionary<string, bool> GroupFields;
     public string Filters;
+    public ObservableCollection<PercentileData> SavedRows;
 }

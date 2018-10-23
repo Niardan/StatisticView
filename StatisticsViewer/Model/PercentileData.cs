@@ -3,12 +3,11 @@ using System.Collections.Generic;
 
 namespace StatisticsViewer.Model
 {
+    [Serializable]
     public class PercentileData
     {
-
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
-
         public string version { get; set; }
         public string short_message { get; set; }
         public string room { get; set; }
@@ -25,7 +24,6 @@ namespace StatisticsViewer.Model
         public double Percentile_90 { get; set; }
         public double Percentile_98 { get; set; }
         public double Percentile_100 { get; set; }
-
     }
 
     public class ConverterMessage

@@ -11,6 +11,7 @@ namespace StatisticsViewer.Model
         }
 
         public string FileldName { set; get; }
+
         public bool Enabled { set; get; }
     }
 }

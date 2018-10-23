@@ -9,32 +9,26 @@ using ConverterMessage = StatisticsViewer.Utils.ConverterMessage;
 
 namespace StatisticsViewer.DataBase
 {
-    class PostSql
+    public class PostSql
     {
-        private NpgsqlConnection _con;
-        private ConverterMessage _converter = new ConverterMessage();
+        private readonly PostSqlCommand _command;
+        private readonly ConverterMessage _converter = new ConverterMessage();
+
         public PostSql(string host, int port, string login, string password, string database)
         {
             string connParam = $"Server={host};Port={port};User Id={login};Password={password};Database={database};";
 
-            _con = new NpgsqlConnection(connParam);
-
-
+            _command = new PostSqlCommand(connParam);
         }
 
         public void CreateTable(string tableName)
         {
 
-            _con.Open();
             string sqlCreate =
                 $"CREATE TABLE \"public\".\"{tableName}\"(\"id\" serial8, \"version\" varchar(10),\"timestamp\" int8,\"short_message\" varchar(50), \"room\" varchar(50), \"process\" int8, \"level\" varchar(20), \"host\" varchar(20), \"full_message\" varchar(100), \"environment\" varchar(20), \"elapsed\" float8, \"app_name\" varchar(20));";
-            NpgsqlCommand com = new NpgsqlCommand(sqlCreate, _con);
-
-            com.ExecuteNonQuery();
+            _command.ExecuteSqlNoQuery(sqlCreate);
             string sql = $"ALTER TABLE \"public\".\"{tableName}\" ADD PRIMARY KEY (\"id\");";
-            com = new NpgsqlCommand(sql, _con);
-            com.ExecuteNonQuery();
-            _con.Close();
+            _command.ExecuteSqlNoQuery(sql);
         }
 
         public List<string> ListTables()
@@ -52,79 +46,74 @@ namespace StatisticsViewer.DataBase
             return listTable;
         }
 
-        public async Task<List<PercentileData>> GetPercentile(string tablename, ICollection<FieldGroupModel> fieldnames, DateTime start, DateTime end, ICollection<FieldFilterModel> filters, IList<double> listPercentile)
+        public async Task<List<PercentileData>> GetPercentile(string tablename,  DateTime start, DateTime end, IDictionary<string, bool> fields, string filters, ICollection<double> listPercentile)
         {
-            long startStamp = (long)(start.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
-            long endStamp = (long)(end.ToUniversalTime().Subtract(new DateTime(1970, 1, 1))).TotalSeconds;
+            long startStamp = (long)start.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
+            long endStamp = (long)end.ToUniversalTime().Subtract(new DateTime(1970, 1, 1)).TotalSeconds;
             StringBuilder builder = new StringBuilder("SELECT ");
-            foreach (var field in fieldnames)
-            {
-                if (field.Enabled)
-                {
-                    builder.Append(field.FileldName + ", ");
-                }
-            }
-
+            builder.Append(GetGroupFilter(fields));
+            builder.Append(", ");
             foreach (var percentile in listPercentile)
             {
                 builder.Append(
                     $"percentile_cont({percentile.ToString(CultureInfo.InvariantCulture)}) within group(order by elapsed asc) as percentile_{(int)(percentile * 100)}, ");
             }
 
-
             builder.Append("count(elapsed), sum(elapsed), min(timestamp), max(timestamp) ");
 
             builder.Append($"FROM \"public\".\"{tablename}\" ");
             builder.Append("WHERE ");
-            builder.Append($"timestamp >{startStamp} AND timestamp<{endStamp} ");
+            builder.Append($"timestamp > {startStamp} AND timestamp < {endStamp}");
             if (filters != null)
             {
+                builder.Append($" AND {filters}");
+            }
 
-                foreach (var filter in filters)
+            builder.Append(" GROUP BY ");
+            builder.Append(GetGroupFilter(fields));
+
+            var table = await GetTable(builder.ToString());
+            return _converter.GetPercentileModels(fields, listPercentile, table);
+        }
+
+        public string GetGroupFilter(IDictionary<string, bool> fields)
+        {
+            var builder = new StringBuilder();
+            bool first = true;
+            foreach (var field in fields)
+            {
+                if (field.Value)
                 {
-                    if (filter.Enabled)
+                    if (first)
                     {
-                        builder.Append($"{filter.TypeAdd} {filter.FilterName}{filter.Type}'{filter.Filter}' ");
+                        first = false;
+                        builder.Append(field.Key);
+                    }
+                    else
+                    {
+                        builder.Append($", {field.Key}");
                     }
                 }
             }
-
-
-            builder.Append("GROUP BY ");
-            foreach (var field in fieldnames)
-            {
-                if (field.Enabled)
-                {
-                    builder.Append(field.FileldName + ", ");
-                }
-
-            }
-            builder.Remove(builder.Length - 2, 1);
-            var table = await GetTable(builder.ToString());
-
-            return _converter.GetPercentileModels(fieldnames, listPercentile, table);
+            return builder.ToString();
         }
 
         private async Task<List<string[]>> GetTable(string sql)
         {
-            _con.Open();
-            NpgsqlCommand com = new NpgsqlCommand(sql, _con);
+            return await _command.ExecuteSql(sql);
+        }
 
-            var rezult = await com.ExecuteReaderAsync();
+        public async Task<List<string>> GetUniqueValue(string filedName, string table)
+        {
+            var sql = $"SELECT DISTINCT {filedName} FROM \"public\".\"{table}\" "; 
+            var result = await _command.ExecuteSql(sql);
 
-            List<string[]> strings = new List<string[]>();
-            var listcount = rezult.FieldCount;
-            while (rezult.Read())
+            List<string> strings = new List<string>();
+
+            foreach (var item in result)
             {
-                var item = new string[listcount];
-                for (int i = 0; i < listcount; i++)
-                {
-                    item[i] = rezult[i].ToString();
-
-                }
-                strings.Add(item);
+                strings.Add(item[0]);
             }
-            _con.Close();
             return strings;
         }
     }
