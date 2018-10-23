@@ -97,23 +97,104 @@
         <Setter Property="Margin" Value="6 0"/>
     </Style>
 
-    <Style TargetType="DataGridColumnHeader">
-        <Setter Property="VerticalContentAlignment" Value="Center" />
-        <Setter Property="Background" Value="Black" />
-        <Setter Property="Foreground" Value="White" />
+    <Style TargetType="DataGrid">
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="AlternatingRowBackground">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.01"/>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="HorizontalGridLinesBrush" Value="Transparent"/>
+        <Setter Property="VerticalGridLinesBrush">
+            <Setter.Value>
+                <SolidColorBrush Color="Black" Opacity="0.1"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="DataGridCell">
+        <Setter Property="Padding" Value="4"/>
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="DataGridColumnHeader">
-                    <Border BorderThickness="0 0 1 0" Background="Black" BorderBrush="White">
-                        <DockPanel Margin="4 0">
-                            <TextBlock Text="{TemplateBinding Content}" 
-            VerticalAlignment="Center" 
-            HorizontalAlignment="Center" 
-            TextWrapping="Wrap"/>
-                            <Button Content="{TemplateBinding Content}"/>
-                        </DockPanel>
+                <ControlTemplate TargetType="{x:Type DataGridCell}">
+                    <Border Padding="{TemplateBinding Padding}" BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="True">
+                        <ContentPresenter SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
                     </Border>
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="ColumnHeaderGripperStyle"
+       TargetType="{x:Type Thumb}">
+        <Setter Property="Width"
+          Value="8" />
+        <Setter Property="Background"
+          Value="Transparent" />
+        <Setter Property="Cursor"
+          Value="SizeWE" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Thumb}">
+                    <Border Background="{TemplateBinding Background}"
+                Padding="{TemplateBinding Padding}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type DataGridColumnHeader}">
+        <Setter Property="VerticalContentAlignment"
+          Value="Center" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                    <Grid>
+                        <Border x:Name="columnHeaderBorder"
+                  BorderThickness="1"
+                  Padding="0,0,1,0">
+                            <Border.BorderBrush>
+                                <SolidColorBrush Color="Black" Opacity="0.2"/>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <SolidColorBrush Color="LightGray"/>
+                            </Border.Background>
+                            <DockPanel Margin="4" HorizontalAlignment="Left">
+                                <TextBlock Text="{TemplateBinding Content}"/>
+                                <Button 
+                                    x:Name="Filter"
+                                    DataContext="{TemplateBinding Content}"
+                                    Width="14"
+                                    Padding="0"
+                                    Margin="2"
+                                    BorderBrush="Transparent"
+                                    Background="Transparent">
+                                    <Image Width="10" Source="filter.png" />
+                                </Button>
+                            </DockPanel>
+                        </Border>
+
+                        <Thumb x:Name="PART_LeftHeaderGripper"
+                 HorizontalAlignment="Left"
+                 Style="{StaticResource ColumnHeaderGripperStyle}" />
+                        <Thumb x:Name="PART_RightHeaderGripper"
+                 HorizontalAlignment="Right"
+                 Style="{StaticResource ColumnHeaderGripperStyle}" />
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsMouseOver" Value="True">
+                            <Setter TargetName="Filter" Property="Background" Value="Transparent"></Setter>
+                        </Trigger>
+                        <Trigger Property="IsMouseOver" Value="False">
+                            <Setter TargetName="Filter" Property="Background" Value="Transparent"></Setter>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="Background">
+            <Setter.Value>
+                <SolidColorBrush Color="LightGray"/>
             </Setter.Value>
         </Setter>
     </Style>

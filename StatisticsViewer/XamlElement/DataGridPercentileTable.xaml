@@ -36,7 +36,7 @@
                                             Binding="{Binding Percentile_75}"/>
                 <DataGridTextColumn Header="Percentile_98"
                                             Binding="{Binding Percentile_98}"/>
-                <DataGridTextColumn Header="Percentile_100"
+                <DataGridTextColumn Header="Percentile_100" Width="*"
                                             Binding="{Binding Percentile_100}"/>
             </DataGrid.Columns>
         </DataGrid>

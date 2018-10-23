@@ -28,7 +28,7 @@ namespace StatisticsViewer
         {
             InitializeComponent();
             _parametr = new Parametr();
-            _postSql = new PostSql("127.0.0.1", 5432, "postgres", "AASSxxzz1", "postgres");
+            _postSql = new PostSql("192.168.1.55", 5432, "postgres", "AASSxxzz1", "postgres");
             _loader = new AsyncBaseLoader(_postSql);
             _filterController = new FilterController(_parametr, FiltersBloks, _loader, _table);
             _filterController.SelectCondition += FilterControllerOnSelectCondition;
